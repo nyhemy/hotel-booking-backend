@@ -1,18 +1,72 @@
 package io.training.catalyte.finalproject.data;
 
+import io.training.catalyte.finalproject.domains.encounters.Encounter;
+import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
+import io.training.catalyte.finalproject.domains.patients.Patient;
+import io.training.catalyte.finalproject.domains.patients.PatientRepository;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
   @Autowired
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private PatientRepository patientRepository;
+
+  @Autowired
+  private EncounterRepository encounterRepository;
 
   @Override
   public void run(String... args) {
+    loadPatients();
+    loadEncounters();
+  }
 
+  private void loadPatients() {
+    patientRepository
+        .save(new Patient(
+            "Jane",
+            "Doe",
+            "000-00-0000",
+            "jd@gmail.com",
+            "Drew Dr",
+            "Turboville",
+            "MA",
+            "01545",
+            23,
+            64,
+            112,
+            "Turbosure",
+            "female"
+        ));
+  }
+
+  private void loadEncounters() {
+
+    SimpleDateFormat yearMonthDay = new SimpleDateFormat("yyyy-MM-dd");
+    String dateOne = "2019-05-21";
+    String dateTwo = "2020-04-19";
+    String dateThree = "2017-10-15";
+
+    encounterRepository
+        .save(new Encounter(
+            1L,
+            "health notes",
+            "A1S 2D3",
+            "ProviderCo",
+            "123.456.789-12",
+            "A12",
+            BigDecimal.valueOf(129.99),
+            BigDecimal.valueOf(20),
+            "not enought cheetos",
+            60,
+            112,
+            70,
+            Date.valueOf(dateOne)
+        ));
   }
 }

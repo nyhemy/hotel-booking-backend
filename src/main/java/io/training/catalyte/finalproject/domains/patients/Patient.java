@@ -53,11 +53,11 @@ public class Patient {
 
   @NotNull
   @Positive(message = HEIGHT_POSITIVE_VALIDATION_ERROR)
-  private Double height;
+  private Integer height;
 
   @NotNull
   @Positive(message = WEIGHT_POSITIVE_VALIDATION_ERROR)
-  private Double weight;
+  private Integer weight;
 
   @NotBlank
   private String insurance;
@@ -68,16 +68,15 @@ public class Patient {
   public Patient() {
   }
 
-  public Patient(Long id, @NotBlank String firstName,
+  public Patient(@NotBlank String firstName,
       @NotBlank String lastName, @NotBlank String SSN,
       @NotBlank @Email(message = GUEST_EMAIL_VALIDATION_ERROR) String email,
       @NotBlank String street, @NotBlank String city,
       @NotBlank String state, @NotBlank String postal,
       @NotNull @Positive(message = AGE_POSITIVE_VALIDATION_ERROR) Integer age,
-      @NotNull @Positive(message = HEIGHT_POSITIVE_VALIDATION_ERROR) Double height,
-      @NotNull @Positive(message = WEIGHT_POSITIVE_VALIDATION_ERROR) Double weight,
+      @NotNull @Positive(message = HEIGHT_POSITIVE_VALIDATION_ERROR) Integer height,
+      @NotNull @Positive(message = WEIGHT_POSITIVE_VALIDATION_ERROR) Integer weight,
       @NotBlank String insurance, @NotBlank String gender) {
-    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.SSN = SSN;
@@ -173,19 +172,19 @@ public class Patient {
     this.age = age;
   }
 
-  public Double getHeight() {
+  public Integer getHeight() {
     return height;
   }
 
-  public void setHeight(Double height) {
+  public void setHeight(Integer height) {
     this.height = height;
   }
 
-  public Double getWeight() {
+  public Integer getWeight() {
     return weight;
   }
 
-  public void setWeight(Double weight) {
+  public void setWeight(Integer weight) {
     this.weight = weight;
   }
 

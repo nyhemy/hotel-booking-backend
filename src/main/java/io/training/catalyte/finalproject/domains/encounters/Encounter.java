@@ -1,5 +1,9 @@
 package io.training.catalyte.finalproject.domains.encounters;
 
+import static io.training.catalyte.finalproject.constants.StringConstants.REQUIRED_FIELD;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.OptBoolean;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -9,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Encounter {
@@ -20,7 +25,6 @@ public class Encounter {
   @NotNull
   private Long patientId;
 
-  @NotBlank
   private String notes;
 
   @NotBlank
@@ -41,33 +45,29 @@ public class Encounter {
   @NotNull
   private BigDecimal copay;
 
-  @NotBlank
   private String chiefComplaint;
 
   @NotNull
   private Integer pulse;
 
-  @NotNull
   private Integer systolic;
 
-  @NotNull
   private Integer diastolic;
 
-  @NotNull
+  @NotNull(message = "date" + REQUIRED_FIELD)
+  @JsonFormat(pattern = "yyyy-MM-dd", lenient = OptBoolean.FALSE)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date date;
 
   public Encounter() {
   }
 
-  public Encounter(Long id, @NotNull Long patientId,
-      @NotBlank String notes, @NotBlank String visitCode,
-      @NotBlank String provider, @NotBlank String billingCode,
-      @NotBlank String icd10, @NotNull BigDecimal totalCost,
-      @NotNull BigDecimal copay,
-      @NotBlank String chiefComplaint, @NotNull Integer pulse,
-      @NotNull Integer systolic, @NotNull Integer diastolic,
+  public Encounter(@NotNull Long patientId, String notes,
+      @NotBlank String visitCode, @NotBlank String provider,
+      @NotBlank String billingCode, @NotBlank String icd10,
+      @NotNull BigDecimal totalCost, @NotNull BigDecimal copay, String chiefComplaint,
+      @NotNull Integer pulse, Integer systolic, Integer diastolic,
       @NotNull Date date) {
-    this.id = id;
     this.patientId = patientId;
     this.notes = notes;
     this.visitCode = visitCode;
