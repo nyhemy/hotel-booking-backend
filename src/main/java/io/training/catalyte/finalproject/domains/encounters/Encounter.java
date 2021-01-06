@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Encounter {
@@ -15,38 +17,56 @@ public class Encounter {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotNull
   private Long patientId;
 
+  @NotBlank
   private String notes;
 
+  @NotBlank
   private String visitCode;
 
+  @NotBlank
   private String provider;
 
+  @NotBlank
   private String billingCode;
 
+  @NotBlank
   private String icd10;
 
+  @NotNull
   private BigDecimal totalCost;
 
+  @NotNull
   private BigDecimal copay;
 
+  @NotBlank
   private String chiefComplaint;
 
+  @NotNull
   private Integer pulse;
 
+  @NotNull
   private Integer systolic;
 
+  @NotNull
   private Integer diastolic;
 
+  @NotNull
   private Date date;
 
   public Encounter() {
   }
 
-  public Encounter(Long id, Long patientId, String notes, String visitCode, String provider,
-      String billingCode, String icd10, BigDecimal totalCost, BigDecimal copay,
-      String chiefComplaint, Integer pulse, Integer systolic, Integer diastolic, Date date) {
+  public Encounter(Long id, @NotNull Long patientId,
+      @NotBlank String notes, @NotBlank String visitCode,
+      @NotBlank String provider, @NotBlank String billingCode,
+      @NotBlank String icd10, @NotNull BigDecimal totalCost,
+      @NotNull BigDecimal copay,
+      @NotBlank String chiefComplaint, @NotNull Integer pulse,
+      @NotNull Integer systolic, @NotNull Integer diastolic,
+      @NotNull Date date) {
     this.id = id;
     this.patientId = patientId;
     this.notes = notes;

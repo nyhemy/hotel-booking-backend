@@ -1,10 +1,19 @@
 package io.training.catalyte.finalproject.domains.patients;
 
+import static io.training.catalyte.finalproject.constants.StringConstants.AGE_POSITIVE_VALIDATION_ERROR;
+import static io.training.catalyte.finalproject.constants.StringConstants.GUEST_EMAIL_VALIDATION_ERROR;
+import static io.training.catalyte.finalproject.constants.StringConstants.HEIGHT_POSITIVE_VALIDATION_ERROR;
+import static io.training.catalyte.finalproject.constants.StringConstants.WEIGHT_POSITIVE_VALIDATION_ERROR;
+
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
 public class Patient {
@@ -13,38 +22,61 @@ public class Patient {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank
   private String firstName;
 
+  @NotBlank
   private String lastName;
 
+  @NotBlank
   private String SSN;
 
+  @NotBlank
+  @Email(message = GUEST_EMAIL_VALIDATION_ERROR)
   private String email;
 
+  @NotBlank
   private String street;
 
+  @NotBlank
   private String city;
 
+  @NotBlank
   private String state;
 
+  @NotBlank
   private String postal;
 
+  @NotNull
+  @Positive(message = AGE_POSITIVE_VALIDATION_ERROR)
   private Integer age;
 
+  @NotNull
+  @Positive(message = HEIGHT_POSITIVE_VALIDATION_ERROR)
   private Double height;
 
+  @NotNull
+  @Positive(message = WEIGHT_POSITIVE_VALIDATION_ERROR)
   private Double weight;
 
+  @NotBlank
   private String insurance;
 
+  @NotBlank
   private String gender;
 
   public Patient() {
   }
 
-  public Patient(Long id, String firstName, String lastName, String SSN, String email,
-      String street, String city, String state, String postal, Integer age, Double height,
-      Double weight, String insurance, String gender) {
+  public Patient(Long id, @NotBlank String firstName,
+      @NotBlank String lastName, @NotBlank String SSN,
+      @NotBlank @Email(message = GUEST_EMAIL_VALIDATION_ERROR) String email,
+      @NotBlank String street, @NotBlank String city,
+      @NotBlank String state, @NotBlank String postal,
+      @NotNull @Positive(message = AGE_POSITIVE_VALIDATION_ERROR) Integer age,
+      @NotNull @Positive(message = HEIGHT_POSITIVE_VALIDATION_ERROR) Double height,
+      @NotNull @Positive(message = WEIGHT_POSITIVE_VALIDATION_ERROR) Double weight,
+      @NotBlank String insurance, @NotBlank String gender) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
