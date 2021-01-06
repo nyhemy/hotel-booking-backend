@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PatientServiceImpl implements PatientService {
 
   private final Logger logger = LoggerFactory.getLogger(PatientServiceImpl.class);
