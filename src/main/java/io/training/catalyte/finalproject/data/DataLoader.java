@@ -43,6 +43,22 @@ public class DataLoader implements CommandLineRunner {
             "Turbosure",
             "female"
         ));
+    patientRepository
+        .save(new Patient(
+            "Jason",
+            "Bourne",
+            "000-00-0000",
+            "null@gmail.com",
+            "REDACTED",
+            "REDACTED",
+            "AK",
+            "01545",
+            40,
+            73,
+            165,
+            "REDACTED",
+            "male"
+        ));
   }
 
   private void loadEncounters() {
@@ -67,6 +83,38 @@ public class DataLoader implements CommandLineRunner {
             112,
             70,
             Date.valueOf(dateOne)
+        ));
+    encounterRepository
+        .save(new Encounter(
+            1L,
+            "health notes",
+            "A1S 2D4",
+            "ProviderCo",
+            "123.456.789-13",
+            "A13",
+            BigDecimal.valueOf(249.99),
+            BigDecimal.valueOf(20),
+            "still not enought cheetos",
+            70,
+            120,
+            69,
+            Date.valueOf(dateTwo)
+        ));
+    encounterRepository
+        .save(new Encounter(
+            2L,
+            "REDACTED",
+            "A1S 3D1",
+            "REDACTED",
+            "123.456.790-01",
+            "B11",
+            BigDecimal.valueOf(99.99),
+            BigDecimal.valueOf(0),
+            "REDACTED",
+            40,
+            110,
+            60,
+            Date.valueOf(dateThree)
         ));
   }
 }

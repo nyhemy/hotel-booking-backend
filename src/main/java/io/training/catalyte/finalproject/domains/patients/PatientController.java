@@ -61,16 +61,21 @@ public class PatientController {
     return new ResponseEntity<>(patientService.getById(id), HttpStatus.OK);
   }
 
+  /**
+   * Method that retrieves all encounters for a patient based of patient id
+   *
+   * @param id of patient
+   * @return list of encounters that contain patient id provdied
+   */
   @GetMapping("/{id}/encounters")
   @ApiOperation("Retrieve all encounters for patient by id")
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "OK", response = Encounter.class)
   })
   public ResponseEntity<List<Encounter>> getAllEncountersByPatientId(@PathVariable Long id) {
-    logger.info(" Get all request recieved");
+    logger.info(" Get all request received");
     return new ResponseEntity<>(patientService.findEncountersByPatientId(id), HttpStatus.OK);
   }
-
 
   /**
    * This method creates a new patient record and saves it to the database
