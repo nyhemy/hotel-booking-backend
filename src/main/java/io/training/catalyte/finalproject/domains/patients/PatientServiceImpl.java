@@ -195,9 +195,9 @@ public class PatientServiceImpl implements PatientService {
   public Encounter updateEncounterByPatientId(Long patientId, Long id, Encounter encounter) {
     Encounter updatedEncounter = null;
 
-//    if (!encounter.getPatientId().equals(patientId)) {
-//      throw new BadRequest("patientId of encounter must match id of current patient");
-//    }
+    if (!encounter.getPatientId().equals(patientId)) {
+      throw new BadRequest("patientId of encounter must match id of current patient");
+    }
 
     try {
       Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
@@ -226,6 +226,10 @@ public class PatientServiceImpl implements PatientService {
    */
   @Override
   public void deletePatient(Long id) {
+    if (!findEncountersByPatientId(id).isEmpty()) {
+      throw new BadRequest("cannot delete patient with existing encounters");
+    }
+
     try {
       patientRepository.deleteById(id);
     } catch (DataAccessException e) {

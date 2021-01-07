@@ -59,6 +59,22 @@ public class DataLoader implements CommandLineRunner {
             "REDACTED",
             "male"
         ));
+    patientRepository
+        .save(new Patient(
+            "Zero",
+            "Encounters",
+            "000-00-0000",
+            "zero@gmail.com",
+            "Place St",
+            "Ether",
+            "FL",
+            "01545",
+            25,
+            67,
+            180,
+            "Weewoo Gotchu Inc",
+            "male"
+        ));
   }
 
   private void loadEncounters() {
