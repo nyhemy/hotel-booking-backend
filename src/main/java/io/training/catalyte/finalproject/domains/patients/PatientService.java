@@ -1,5 +1,6 @@
 package io.training.catalyte.finalproject.domains.patients;
 
+import io.training.catalyte.finalproject.domains.encounters.Encounter;
 import java.util.List;
 
 public interface PatientService {
@@ -7,6 +8,8 @@ public interface PatientService {
   List<Patient> getAll();
 
   Patient getById(Long id);
+
+  List<Encounter> findEncountersByPatientId(Long id);
 
   Patient createPatient(Patient patient);
 

@@ -3,6 +3,7 @@ package io.training.catalyte.finalproject.domains.encounters;
 import static io.training.catalyte.finalproject.constants.StringConstants.REQUIRED_FIELD;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.OptBoolean;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -228,6 +229,24 @@ public class Encounter {
             getDiastolic(), getDate());
   }
 
+  @JsonIgnore
+  public boolean isEmpty(){
+    return Objects.isNull(id) &&
+        Objects.isNull(patientId) &&
+        Objects.isNull(notes) &&
+        Objects.isNull(visitCode) &&
+        Objects.isNull(provider) &&
+        Objects.isNull(billingCode) &&
+        Objects.isNull(icd10) &&
+        Objects.isNull(totalCost) &&
+        Objects.isNull(copay) &&
+        Objects.isNull(chiefComplaint) &&
+        Objects.isNull(pulse) &&
+        Objects.isNull(systolic) &&
+        Objects.isNull(diastolic) &&
+        Objects.isNull(date);
+  }
+
   @Override
   public String toString() {
     return "Encounter{" +
@@ -247,4 +266,6 @@ public class Encounter {
         ", date=" + date +
         '}';
   }
+
+
 }

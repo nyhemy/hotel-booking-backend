@@ -1,5 +1,6 @@
 package io.training.catalyte.finalproject.domains.patients;
 
+import io.training.catalyte.finalproject.domains.encounters.Encounter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +58,36 @@ public class PatientServiceImpl implements PatientService {
     } else {
       return patient.get();
     }
+  }
+
+  @Override
+  public List<Encounter> findEncountersByPatientId(Long id) {
+
+    Encounter encounterToQuery = new Encounter(
+        id,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    );
+
+    try {
+//      List<Encounter> encounterQueryResults = encounterService.getAll
+      List<Encounter> encounterList = new ArrayList<>();
+
+    } catch (Exception e) {
+
+    }
+
+    return null;
   }
 
   /**
