@@ -3,6 +3,7 @@ package io.training.catalyte.finalproject.domains.patients;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.training.catalyte.finalproject.domains.encounters.Encounter;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -59,6 +60,17 @@ public class PatientController {
     logger.info(" Get all request received");
     return new ResponseEntity<>(patientService.getById(id), HttpStatus.OK);
   }
+
+  @GetMapping("/{id}/encounters")
+  @ApiOperation("Retrieve all encounters for patient by id")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Encounter.class)
+  })
+  public ResponseEntity<List<Encounter>> getAllEncountersByPatientId(@PathVariable Long id) {
+    logger.info(" Get all request recieved");
+    return new ResponseEntity<>(patientService.findEncountersByPatientId(id), HttpStatus.OK);
+  }
+
 
   /**
    * This method creates a new patient record and saves it to the database

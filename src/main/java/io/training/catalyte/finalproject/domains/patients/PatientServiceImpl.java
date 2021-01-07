@@ -1,6 +1,8 @@
 package io.training.catalyte.finalproject.domains.patients;
 
 import io.training.catalyte.finalproject.domains.encounters.Encounter;
+import io.training.catalyte.finalproject.domains.encounters.EncounterService;
+import io.training.catalyte.finalproject.exceptions.ServiceUnavailable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,9 @@ public class PatientServiceImpl implements PatientService {
 
   @Autowired
   private PatientRepository patientRepository;
+
+  @Autowired
+  private EncounterService encounterService;
 
   /**
    * Retrieves all patients from the database.
@@ -60,6 +65,12 @@ public class PatientServiceImpl implements PatientService {
     }
   }
 
+  /**
+   * Retrieves all encounters for patient with provided id
+   *
+   * @param id is patient id
+   * @return list of encounters
+   */
   @Override
   public List<Encounter> findEncountersByPatientId(Long id) {
 
@@ -80,14 +91,19 @@ public class PatientServiceImpl implements PatientService {
     );
 
     try {
-//      List<Encounter> encounterQueryResults = encounterService.getAll
-      List<Encounter> encounterList = new ArrayList<>();
+      List<Encounter> encounterQueryResults = encounterService.getAll(encounterToQuery);
+
+      if (!encounterQueryResults.isEmpty()) {
+        return encounterQueryResults;
+
+      } else {
+        return new ArrayList<>();
+      }
 
     } catch (Exception e) {
-
+      logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
-
-    return null;
   }
 
   /**
