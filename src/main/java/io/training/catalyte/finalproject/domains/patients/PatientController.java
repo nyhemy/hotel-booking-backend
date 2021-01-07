@@ -135,6 +135,27 @@ public class PatientController {
   }
 
   /**
+   * Method updates and existing encounter record for a specific patient
+   *
+   * @param id of patient
+   * @param encounterId id of encounter to be updated
+   * @param encounter updated encounter information
+   * @return updated encounter and 200 status code
+   */
+  @PutMapping("/{id}/encounters/{encounterId}")
+  @ApiOperation("Update a single encounter pertaining to a patient with encounter info provided")
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "OK", response = Encounter.class),
+      @ApiResponse(code = 400, message = "Invalid request", response = ResponseStatusException.class)
+  })
+  public ResponseEntity<Encounter> updateEncounterForPatient(@Valid @PathVariable Long id,
+      @PathVariable Long encounterId, @RequestBody Encounter encounter) {
+    logger.info (" Put request received");
+    return new ResponseEntity<>(patientService.updateEncounterByPatientId(id, encounterId,
+        encounter), HttpStatus.OK);
+  }
+
+  /**
    * This method deletes and existing patient record
    *
    * @param id of the patient to be deleted

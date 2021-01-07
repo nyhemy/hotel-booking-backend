@@ -17,5 +17,7 @@ public interface PatientService {
 
   Patient updatePatient(Long id, Patient patient);
 
+  Encounter updateEncounterByPatientId(Long patientId, Long id, Encounter encounter);
+
   void deletePatient(Long id);
 }

@@ -177,9 +177,42 @@ public class PatientServiceImpl implements PatientService {
       }
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     return updatedPatient;
+  }
+
+  /**
+   * Updates a specified encounter for a patient in the database.
+   *
+   * @param patientId is the id of the patient to whom the encounter belongs
+   * @param id is the id of the encounter that will be updated
+   * @param encounter is the provided encounter information to persist
+   * @return the updated encounter
+   */
+  @Override
+  public Encounter updateEncounterByPatientId(Long patientId, Long id, Encounter encounter) {
+    Encounter updatedEncounter = null;
+
+    if (!encounter.getPatientId().equals(patientId)) {
+      throw new BadRequest("patientId of encounter must match id of current patient");
+    }
+
+    try {
+      Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
+      if (encounterToUpdate.isEmpty()) {
+        throw new ResourceNotFoundException();
+      } else {
+        updatedEncounter = encounterRepository.save(encounter);
+      }
+
+    } catch (DataAccessException e) {
+      logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
+    }
+
+    return updatedEncounter;
   }
 
   /**
