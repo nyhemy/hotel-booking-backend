@@ -1,7 +1,10 @@
 package io.training.catalyte.finalproject.domains.patients;
 
 import io.training.catalyte.finalproject.domains.encounters.Encounter;
+import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
 import io.training.catalyte.finalproject.domains.encounters.EncounterService;
+import io.training.catalyte.finalproject.exceptions.BadDataResponse;
+import io.training.catalyte.finalproject.exceptions.BadRequest;
 import io.training.catalyte.finalproject.exceptions.ServiceUnavailable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class PatientServiceImpl implements PatientService {
 
   @Autowired
   private PatientRepository patientRepository;
+
+  @Autowired
+  private EncounterRepository encounterRepository;
 
   @Autowired
   private EncounterService encounterService;
@@ -120,9 +126,35 @@ public class PatientServiceImpl implements PatientService {
       postedPatient = patientRepository.save(patient);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     return postedPatient;
+  }
+
+  /**
+   * Creates a new encounter in the database for the specified patient
+   *
+   * @param patientId is id of patient to receive new encounter
+   * @param encounter the encounter object to be persisted to the database
+   * @return the persisted encounter
+   */
+  @Override
+  public Encounter createEncounterForPatientById(Long patientId, Encounter encounter) {
+    Encounter postedEncounter = null;
+
+    if (!encounter.getPatientId().equals(patientId)) {
+      throw new BadRequest("patientId of encounter must match id of current patient");
+    }
+
+    try {
+        postedEncounter = encounterRepository.save(encounter);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
+    }
+
+    return postedEncounter;
   }
 
   /**

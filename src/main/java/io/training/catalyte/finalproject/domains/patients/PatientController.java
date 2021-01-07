@@ -97,6 +97,24 @@ public class PatientController {
   }
 
   /**
+   * Creates new encounter for specified patient
+   *
+   * @param id id of patient to receive new encounter
+   * @param encounter is encounter object to be created
+   * @return created encounter and 201 status code
+   */
+  @PostMapping("/{id}/encounters")
+  @ApiOperation("Add a single encounter to patient based off id, by encounter info provided")
+  @ApiResponses(value = {
+      @ApiResponse(code = 201, message = "Created", response = Patient.class),
+      @ApiResponse(code = 400, message = "Invalid request", response = ResponseStatusException.class)
+  })
+  public ResponseEntity<Encounter> createEncounterForPatient(@PathVariable Long id, @Valid @RequestBody Encounter encounter) {
+    logger.info(" Post request received");
+    return new ResponseEntity<>(patientService.createEncounterForPatientById(id, encounter), HttpStatus.CREATED);
+  }
+
+  /**
    * This method updates and existing patient record
    *
    * @param patient updated patient information
