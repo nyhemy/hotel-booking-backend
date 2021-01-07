@@ -195,14 +195,18 @@ public class PatientServiceImpl implements PatientService {
   public Encounter updateEncounterByPatientId(Long patientId, Long id, Encounter encounter) {
     Encounter updatedEncounter = null;
 
-    if (!encounter.getPatientId().equals(patientId)) {
-      throw new BadRequest("patientId of encounter must match id of current patient");
-    }
+//    if (!encounter.getPatientId().equals(patientId)) {
+//      throw new BadRequest("patientId of encounter must match id of current patient");
+//    }
 
     try {
       Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
       if (encounterToUpdate.isEmpty()) {
         throw new ResourceNotFoundException();
+      } else if (!encounterToUpdate.get().getPatientId().equals(patientId)) {
+        throw new ResourceNotFoundException(
+            "patientId found in encounter did not match patient id param in request"
+        );
       } else {
         updatedEncounter = encounterRepository.save(encounter);
       }

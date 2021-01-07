@@ -148,8 +148,8 @@ public class PatientController {
       @ApiResponse(code = 200, message = "OK", response = Encounter.class),
       @ApiResponse(code = 400, message = "Invalid request", response = ResponseStatusException.class)
   })
-  public ResponseEntity<Encounter> updateEncounterForPatient(@Valid @PathVariable Long id,
-      @PathVariable Long encounterId, @RequestBody Encounter encounter) {
+  public ResponseEntity<Encounter> updateEncounterForPatient(@PathVariable Long id,
+      @PathVariable Long encounterId, @Valid @RequestBody Encounter encounter) {
     logger.info (" Put request received");
     return new ResponseEntity<>(patientService.updateEncounterByPatientId(id, encounterId,
         encounter), HttpStatus.OK);
