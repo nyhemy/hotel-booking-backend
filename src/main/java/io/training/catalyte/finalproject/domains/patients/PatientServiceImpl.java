@@ -45,6 +45,7 @@ public class PatientServiceImpl implements PatientService {
       patientList = patientRepository.findAll();
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     return patientList;
@@ -64,6 +65,7 @@ public class PatientServiceImpl implements PatientService {
       patient = patientRepository.findById(id);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     if (patient.isEmpty()) {
@@ -259,6 +261,7 @@ public class PatientServiceImpl implements PatientService {
 
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     throw new ResourceNotFound("Patient does not exist in database");

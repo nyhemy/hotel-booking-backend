@@ -61,6 +61,7 @@ public class EncounterServiceImpl implements EncounterService {
       encounter = encounterRepository.findById(id);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     if (encounter.isEmpty()) {
@@ -84,6 +85,7 @@ public class EncounterServiceImpl implements EncounterService {
       postedEncounter = encounterRepository.save(encounter);
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     return postedEncounter;
@@ -109,6 +111,7 @@ public class EncounterServiceImpl implements EncounterService {
       }
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
+      throw new ServiceUnavailable(e);
     }
 
     return updatedEncounter;
