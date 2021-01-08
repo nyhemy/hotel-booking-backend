@@ -5,6 +5,7 @@ public class StringConstants {
   public static final String NOT_FOUND = "Not Found";
   public static final String SERVER_ERROR = "Server Error";
   public static final String BAD_REQUEST = "Bad Request, check your input and try again";
+  public static final String CONFLICT = "Request contains data that conflicts with data on server";
 
   // Patients
   public static final String REQUIRED_FIELD = " is a required field";

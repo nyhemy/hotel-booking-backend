@@ -5,6 +5,8 @@ import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
 import io.training.catalyte.finalproject.domains.encounters.EncounterService;
 import io.training.catalyte.finalproject.exceptions.BadDataResponse;
 import io.training.catalyte.finalproject.exceptions.BadRequest;
+import io.training.catalyte.finalproject.exceptions.Conflict;
+import io.training.catalyte.finalproject.exceptions.ResourceNotFound;
 import io.training.catalyte.finalproject.exceptions.ServiceUnavailable;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +123,13 @@ public class PatientServiceImpl implements PatientService {
   @Override
   public Patient createPatient(Patient patient) {
     Patient postedPatient = null;
+    List<Patient> patientList = new ArrayList<>(patientRepository.findAll());
+
+    for (Patient p : patientList) {
+      if (p.getEmail().equals(patient.getEmail())) {
+        throw new Conflict("Email already exists in database");
+      }
+    }
 
     try {
       postedPatient = patientRepository.save(patient);
@@ -144,7 +153,7 @@ public class PatientServiceImpl implements PatientService {
     Encounter postedEncounter = null;
 
     if (!encounter.getPatientId().equals(patientId)) {
-      throw new BadRequest("patientId of encounter must match id of current patient");
+      throw new BadRequest("PatientId of encounter must match id of current patient");
     }
 
     try {
@@ -167,12 +176,24 @@ public class PatientServiceImpl implements PatientService {
   @Override
   public Patient updatePatient(Long id, Patient patient) {
     Patient updatedPatient = null;
+    List<Patient> patientList = new ArrayList<>(patientRepository.findAll());
+    String patientEmail = patient.getEmail();
 
     try {
       Optional<Patient> patientToUpdate = patientRepository.findById(id);
       if (patientToUpdate.isEmpty()) {
         throw new ResourceNotFoundException();
       } else {
+        for (Patient loopPatient : patientList) {
+          String patientToUpdateEmail = patientToUpdate.get().getEmail();
+          String loopPatientEmail = loopPatient.getEmail();
+
+          if (!loopPatientEmail.equals(patientToUpdateEmail)
+              && loopPatientEmail.equals(patientEmail)) {
+            throw new Conflict("Email already exists in database");
+          }
+        }
+
         updatedPatient = patientRepository.save(patient);
       }
     } catch (DataAccessException e) {
@@ -227,13 +248,19 @@ public class PatientServiceImpl implements PatientService {
   @Override
   public void deletePatient(Long id) {
     if (!findEncountersByPatientId(id).isEmpty()) {
-      throw new BadRequest("cannot delete patient with existing encounters");
+      throw new Conflict("Cannot delete patient with existing encounters");
     }
 
     try {
-      patientRepository.deleteById(id);
+      if (patientRepository.existsById(id)) {
+        patientRepository.deleteById(id);
+        return;
+      }
+
     } catch (DataAccessException e) {
       logger.error(e.getMessage());
     }
+
+    throw new ResourceNotFound("Patient does not exist in database");
   }
 }

@@ -1,6 +1,7 @@
 package io.training.catalyte.finalproject.exceptions;
 
 import static io.training.catalyte.finalproject.constants.StringConstants.BAD_REQUEST;
+import static io.training.catalyte.finalproject.constants.StringConstants.CONFLICT;
 import static io.training.catalyte.finalproject.constants.StringConstants.NOT_FOUND;
 import static io.training.catalyte.finalproject.constants.StringConstants.SERVER_ERROR;
 import java.rmi.ServerError;
@@ -55,6 +56,13 @@ public class ExceptionController {
     ExceptionResponse response = new ExceptionResponse(BAD_REQUEST, new Date(),
         exception.getMessage());
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(Conflict.class)
+  protected ResponseEntity<ExceptionResponse> conflict(Conflict exception) {
+    ExceptionResponse response = new ExceptionResponse(CONFLICT, new Date(),
+        exception.getMessage());
+    return new ResponseEntity<>(response, HttpStatus.CONFLICT);
   }
 
 }
