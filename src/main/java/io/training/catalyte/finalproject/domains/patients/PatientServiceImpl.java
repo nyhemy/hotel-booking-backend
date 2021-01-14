@@ -115,6 +115,24 @@ public class PatientServiceImpl implements PatientService {
       throw new ServiceUnavailable(e);
     }
   }
+//
+//  @Override
+//  public Encounter findEncounterById( Long id) {
+//    Optional<Encounter> encounter = Optional.ofNullable(null);
+//
+//    try {
+//      encounter = encounterRepository.findById(id);
+//    } catch (DataAccessException e) {
+//      logger.error(e.getMessage());
+//      throw new ServiceUnavailable(e);
+//    }
+//
+//    if (encounter.isEmpty()) {
+//      throw new ResourceNotFoundException();
+//    } else {
+//      return encounter.get();
+//    }
+//  }
 
   /**
    * Persists a new patient to the database.

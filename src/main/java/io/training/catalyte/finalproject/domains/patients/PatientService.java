@@ -11,6 +11,8 @@ public interface PatientService {
 
   List<Encounter> findEncountersByPatientId(Long id);
 
+//  Encounter findEncounterById( Long id);
+
   Patient createPatient(Patient patient);
 
   Encounter createEncounterForPatientById(Long patientId, Encounter encounter);
