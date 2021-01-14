@@ -46,9 +46,9 @@ public class Encounter {
   @NotNull
   private BigDecimal copay;
 
+  @NotBlank
   private String chiefComplaint;
 
-  @NotNull
   private Integer pulse;
 
   private Integer systolic;
@@ -66,9 +66,9 @@ public class Encounter {
   public Encounter(@NotNull Long patientId, String notes,
       @NotBlank String visitCode, @NotBlank String provider,
       @NotBlank String billingCode, @NotBlank String icd10,
-      @NotNull BigDecimal totalCost, @NotNull BigDecimal copay, String chiefComplaint,
-      @NotNull Integer pulse, Integer systolic, Integer diastolic,
-      @NotNull Date date) {
+      @NotNull BigDecimal totalCost, @NotNull BigDecimal copay,
+      @NotBlank String chiefComplaint, Integer pulse, Integer systolic, Integer diastolic,
+      @NotNull(message = "date" + REQUIRED_FIELD) Date date) {
     this.patientId = patientId;
     this.notes = notes;
     this.visitCode = visitCode;
