@@ -7,11 +7,11 @@ Project meant to simulate a real-world client, and is meant to test trainee prof
 
 ***Pre-Requisites***
 
-- Java and Intellij
+* Java and Intellij
 
-- A Git GUI, preferably GitBash
+* A Git GUI, preferably GitBash
 
-- Make sure that you have a postgres database available and configured with the following options:
+* Make sure that you have a postgres database available and configured with the following options:
 	POSTGRES_USER=user
 	POSTGRES_PASSWORD=root
 	PORT=5432
