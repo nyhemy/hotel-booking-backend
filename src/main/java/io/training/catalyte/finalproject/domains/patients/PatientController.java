@@ -60,7 +60,7 @@ public class PatientController {
       @ApiResponse(code = 200, message = "OK", response = Patient.class)
   })
   public ResponseEntity<Patient> getPatientById(@PathVariable Long id) {
-    logger.info(" Get all request received");
+    logger.info(" Get request received");
     return new ResponseEntity<>(patientService.getById(id), HttpStatus.OK);
   }
 

@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.training.catalyte.finalproject.domains.patients.Patient;
-import io.training.catalyte.finalproject.domains.patients.PatientController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/encounters")
 public class EncounterController {
 
-  private final Logger logger = LoggerFactory.getLogger(PatientController.class);
+  private final Logger logger = LoggerFactory.getLogger(EncounterController.class);
 
   @Autowired
   private EncounterService encounterService;

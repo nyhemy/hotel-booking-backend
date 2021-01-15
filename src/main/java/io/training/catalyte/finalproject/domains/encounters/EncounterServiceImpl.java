@@ -19,8 +19,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EncounterServiceImpl implements EncounterService {
 
-  private final Logger logger = LoggerFactory
-      .getLogger(io.training.catalyte.finalproject.domains.patients.PatientServiceImpl.class);
+  private final Logger logger = LoggerFactory.getLogger(EncounterServiceImpl.class);
 
   @Autowired
   private EncounterRepository encounterRepository;
