@@ -72,7 +72,7 @@ public class EncounterServiceImplTest {
   }
 
   @Test
-  public void testQueryEncountersNonNullExample() throws Exception {
+  public void testGetAllNonNullExample() throws Exception {
     List<Encounter> actualResult = mockEncounterServiceImpl.getAll(encounterOne);
 
     Assert.assertEquals(encounterList, actualResult);
