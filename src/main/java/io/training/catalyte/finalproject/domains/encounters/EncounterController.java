@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for encounters
+ */
 @RestController
 @RequestMapping("/encounters")
 public class EncounterController {
@@ -24,6 +27,12 @@ public class EncounterController {
   @Autowired
   private EncounterService encounterService;
 
+  /**
+   * Gets an encounter based off of its id
+   *
+   * @param id
+   * @return
+   */
   @GetMapping("/{id}")
   @ApiOperation("Retrieve an encounter by id")
   @ApiResponses(value = {

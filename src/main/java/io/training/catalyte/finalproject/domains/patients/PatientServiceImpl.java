@@ -3,7 +3,6 @@ package io.training.catalyte.finalproject.domains.patients;
 import io.training.catalyte.finalproject.domains.encounters.Encounter;
 import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
 import io.training.catalyte.finalproject.domains.encounters.EncounterService;
-import io.training.catalyte.finalproject.exceptions.BadDataResponse;
 import io.training.catalyte.finalproject.exceptions.BadRequest;
 import io.training.catalyte.finalproject.exceptions.Conflict;
 import io.training.catalyte.finalproject.exceptions.ResourceNotFound;
@@ -18,6 +17,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of Patient crud methods
+ */
 @Service
 public class PatientServiceImpl implements PatientService {
 

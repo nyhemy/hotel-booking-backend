@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class in charge of loading data into database on app startup
+ */
 @Component
 public class DataLoader implements CommandLineRunner {
 

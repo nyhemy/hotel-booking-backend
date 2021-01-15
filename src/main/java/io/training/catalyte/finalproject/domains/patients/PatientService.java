@@ -3,6 +3,10 @@ package io.training.catalyte.finalproject.domains.patients;
 import io.training.catalyte.finalproject.domains.encounters.Encounter;
 import java.util.List;
 
+/**
+ * Service for Patient containing patient crud methods as well as some crud for encounters that
+ * depend on a Patient
+ */
 public interface PatientService {
 
   List<Patient> getAll();

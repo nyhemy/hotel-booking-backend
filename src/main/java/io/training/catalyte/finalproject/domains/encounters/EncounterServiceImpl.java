@@ -13,6 +13,9 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of Encounter crud methods
+ */
 @Service
 public class EncounterServiceImpl implements EncounterService {
 
