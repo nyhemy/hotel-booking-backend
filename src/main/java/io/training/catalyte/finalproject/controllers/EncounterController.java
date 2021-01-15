@@ -1,9 +1,11 @@
-package io.training.catalyte.finalproject.domains.encounters;
+package io.training.catalyte.finalproject.controllers;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.training.catalyte.finalproject.domains.patients.Patient;
+import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.services.EncounterService;
+import io.training.catalyte.finalproject.entities.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

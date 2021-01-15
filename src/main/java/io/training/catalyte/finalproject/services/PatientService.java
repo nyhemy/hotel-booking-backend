@@ -1,6 +1,7 @@
-package io.training.catalyte.finalproject.domains.patients;
+package io.training.catalyte.finalproject.services;
 
-import io.training.catalyte.finalproject.domains.encounters.Encounter;
+import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.entities.Patient;
 import java.util.List;
 
 /**

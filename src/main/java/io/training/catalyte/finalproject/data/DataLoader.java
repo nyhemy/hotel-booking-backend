@@ -1,9 +1,9 @@
 package io.training.catalyte.finalproject.data;
 
-import io.training.catalyte.finalproject.domains.encounters.Encounter;
-import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
-import io.training.catalyte.finalproject.domains.patients.Patient;
-import io.training.catalyte.finalproject.domains.patients.PatientRepository;
+import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.repositories.EncounterRepository;
+import io.training.catalyte.finalproject.entities.Patient;
+import io.training.catalyte.finalproject.repositories.PatientRepository;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;

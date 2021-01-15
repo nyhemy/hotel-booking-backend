@@ -1,4 +1,4 @@
-package io.training.catalyte.finalproject.domains.encounters;
+package io.training.catalyte.finalproject.entities;
 
 import static io.training.catalyte.finalproject.constants.StringConstants.REQUIRED_FIELD;
 

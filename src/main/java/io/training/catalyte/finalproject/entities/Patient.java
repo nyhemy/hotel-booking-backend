@@ -1,4 +1,4 @@
-package io.training.catalyte.finalproject.domains.patients;
+package io.training.catalyte.finalproject.entities;
 
 import static io.training.catalyte.finalproject.constants.StringConstants.AGE_POSITIVE_VALIDATION_ERROR;
 import static io.training.catalyte.finalproject.constants.StringConstants.GUEST_EMAIL_VALIDATION_ERROR;

@@ -1,12 +1,13 @@
-package io.training.catalyte.finalproject.domains.patients;
+package io.training.catalyte.finalproject.services;
 
-import io.training.catalyte.finalproject.domains.encounters.Encounter;
-import io.training.catalyte.finalproject.domains.encounters.EncounterRepository;
-import io.training.catalyte.finalproject.domains.encounters.EncounterService;
+import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.entities.Patient;
+import io.training.catalyte.finalproject.repositories.EncounterRepository;
 import io.training.catalyte.finalproject.exceptions.BadRequest;
 import io.training.catalyte.finalproject.exceptions.Conflict;
 import io.training.catalyte.finalproject.exceptions.ResourceNotFound;
 import io.training.catalyte.finalproject.exceptions.ServiceUnavailable;
+import io.training.catalyte.finalproject.repositories.PatientRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

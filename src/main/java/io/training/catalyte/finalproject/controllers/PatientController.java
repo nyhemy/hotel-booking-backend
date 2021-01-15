@@ -1,9 +1,11 @@
-package io.training.catalyte.finalproject.domains.patients;
+package io.training.catalyte.finalproject.controllers;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.training.catalyte.finalproject.domains.encounters.Encounter;
+import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.entities.Patient;
+import io.training.catalyte.finalproject.services.PatientService;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
