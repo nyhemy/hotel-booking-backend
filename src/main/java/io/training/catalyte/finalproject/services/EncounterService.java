@@ -11,8 +11,4 @@ public interface EncounterService {
   List<Encounter> getAll(Encounter encounter);
 
   Encounter getById(Long id);
-
-  Encounter createEncounter(Encounter encounter);
-
-  Encounter updateEncounter(Long id, Encounter encounter);
 }

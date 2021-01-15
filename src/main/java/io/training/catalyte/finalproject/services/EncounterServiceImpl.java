@@ -1,6 +1,7 @@
 package io.training.catalyte.finalproject.services;
 
 import io.training.catalyte.finalproject.entities.Encounter;
+import io.training.catalyte.finalproject.exceptions.ResourceNotFound;
 import io.training.catalyte.finalproject.exceptions.ServiceUnavailable;
 import io.training.catalyte.finalproject.repositories.EncounterRepository;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Example;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -42,7 +42,7 @@ public class EncounterServiceImpl implements EncounterService {
         return encounterRepository.findAll(encounterExample);
       }
 
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
@@ -62,61 +62,15 @@ public class EncounterServiceImpl implements EncounterService {
 
     try {
       encounter = encounterRepository.findById(id);
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
 
     if (encounter.isEmpty()) {
-      throw new ResourceNotFoundException();
+      throw new ResourceNotFound();
     } else {
       return encounter.get();
     }
-  }
-
-  /**
-   * Persists a new encounter to the database.
-   *
-   * @param encounter the encounter object to persist
-   * @return the persisted encounter
-   */
-  @Override
-  public Encounter createEncounter(Encounter encounter) {
-    Encounter postedEncounter = null;
-
-    try {
-      postedEncounter = encounterRepository.save(encounter);
-    } catch (DataAccessException e) {
-      logger.error(e.getMessage());
-      throw new ServiceUnavailable(e);
-    }
-
-    return postedEncounter;
-  }
-
-  /**
-   * Updates a specified record in the database.
-   *
-   * @param id the id of the record to update
-   * @param encounter the provided encounter information to persist
-   * @return the updated encounter
-   */
-  @Override
-  public Encounter updateEncounter(Long id, Encounter encounter) {
-    Encounter updatedEncounter = null;
-
-    try {
-      Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
-      if (encounterToUpdate.isEmpty()) {
-        throw new ResourceNotFoundException();
-      } else {
-        updatedEncounter = encounterRepository.save(encounter);
-      }
-    } catch (DataAccessException e) {
-      logger.error(e.getMessage());
-      throw new ServiceUnavailable(e);
-    }
-
-    return updatedEncounter;
   }
 }

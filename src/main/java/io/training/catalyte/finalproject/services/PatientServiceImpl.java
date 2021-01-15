@@ -14,8 +14,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,7 +44,7 @@ public class PatientServiceImpl implements PatientService {
 
     try {
       patientList = patientRepository.findAll();
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
@@ -66,13 +64,13 @@ public class PatientServiceImpl implements PatientService {
 
     try {
       patient = patientRepository.findById(id);
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
 
     if (patient.isEmpty()) {
-      throw new ResourceNotFoundException();
+      throw new ResourceNotFound();
     } else {
       return patient.get();
     }
@@ -138,7 +136,7 @@ public class PatientServiceImpl implements PatientService {
 
     try {
       postedPatient = patientRepository.save(patient);
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
@@ -182,26 +180,26 @@ public class PatientServiceImpl implements PatientService {
   public Patient updatePatient(Long id, Patient patient) {
     Patient updatedPatient = null;
     List<Patient> patientList = new ArrayList<>(patientRepository.findAll());
+    Optional<Patient> patientToUpdate = patientRepository.findById(id);
     String patientEmail = patient.getEmail();
 
-    try {
-      Optional<Patient> patientToUpdate = patientRepository.findById(id);
-      if (patientToUpdate.isEmpty()) {
-        throw new ResourceNotFoundException();
-      } else {
-        for (Patient loopPatient : patientList) {
-          String patientToUpdateEmail = patientToUpdate.get().getEmail();
-          String loopPatientEmail = loopPatient.getEmail();
+    if (patientToUpdate.isEmpty()) {
+      throw new ResourceNotFound();
+    }
 
-          if (!loopPatientEmail.equals(patientToUpdateEmail)
-              && loopPatientEmail.equals(patientEmail)) {
-            throw new Conflict("Email already exists in database");
-          }
-        }
+    for (Patient loopPatient : patientList) {
+      String patientToUpdateEmail = patientToUpdate.get().getEmail();
+      String loopPatientEmail = loopPatient.getEmail();
 
-        updatedPatient = patientRepository.save(patient);
+      if (!loopPatientEmail.equals(patientToUpdateEmail)
+          && loopPatientEmail.equals(patientEmail)) {
+        throw new Conflict("Email already exists in database");
       }
-    } catch (DataAccessException e) {
+    }
+
+    try {
+      updatedPatient = patientRepository.save(patient);
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
@@ -220,24 +218,24 @@ public class PatientServiceImpl implements PatientService {
   @Override
   public Encounter updateEncounterByPatientId(Long patientId, Long id, Encounter encounter) {
     Encounter updatedEncounter = null;
+    Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
 
     if (!encounter.getPatientId().equals(patientId)) {
       throw new BadRequest("patientId of encounter must match id of current patient");
     }
 
-    try {
-      Optional<Encounter> encounterToUpdate = encounterRepository.findById(id);
-      if (encounterToUpdate.isEmpty()) {
-        throw new ResourceNotFoundException();
-      } else if (!encounterToUpdate.get().getPatientId().equals(patientId)) {
-        throw new ResourceNotFoundException(
-            "patientId found in encounter did not match patient id param in request"
-        );
-      } else {
-        updatedEncounter = encounterRepository.save(encounter);
-      }
+    if (encounterToUpdate.isEmpty()) {
+      throw new ResourceNotFound();
+    } else if (!encounterToUpdate.get().getPatientId().equals(patientId)) {
+      throw new ResourceNotFound(
+          "patientId found in encounter did not match patient id param in request"
+      );
+    }
 
-    } catch (DataAccessException e) {
+    try {
+      updatedEncounter = encounterRepository.save(encounter);
+
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
@@ -262,7 +260,7 @@ public class PatientServiceImpl implements PatientService {
         return;
       }
 
-    } catch (DataAccessException e) {
+    } catch (Exception e) {
       logger.error(e.getMessage());
       throw new ServiceUnavailable(e);
     }
